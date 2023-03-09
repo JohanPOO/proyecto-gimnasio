@@ -1,0 +1,137 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*
+body {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.fijar {
+  z-index: 10;
+  height: 100vh;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #303030;
+}
+
+span i {
+  color: #fff;
+  font-size: 2.7rem;
+  cursor: pointer;
+}
+.header-aside {
+  background-color: #000;
+  width: 260px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow-y: hidden;
+  margin-top: 100px;
+  transition: 0.5s;
+  z-index: 1;
+}
+
+.header-aside:hover {
+  overflow-y: auto;
+}
+.ocultar {
+  transform: translateX(-100%);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow-y: hidden;
+  margin-top: 100px;
+  transition: 0.5s;
+  position: fixed;
+}
+
+.header-aside::-webkit-scrollbar {
+  width: 8px;
+}
+.header-aside::-webkit-scrollbar-thumb {
+  background-color: #909090;
+  border-radius: 5px;
+}
+.container-svg {
+  padding: 50px 1px;
+  color: #fff;
+}
+.container-svg div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.container-svg div:hover {
+  background-color: #303030;
+}
+.container-svg div span {
+  margin-left: 15px;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+h2 {
+  padding: 10px 20px;
+  color: #aaaaaa;
+}*/
+
+/*Estilos del carrusel*/
+
+/*img {
+  border: 2px solid black;
+}*/
+
+.h-100 {
+  height: 40rem;
+}
+
+/*
+.glide {
+  width: 100%;
+  overflow: hidden;
+}
+
+.glide__track {
+  list-style: none;
+  width: 100%;
+}
+
+.glide__slide {
+  display: block;
+  width: 100%;
+}
+
+.glide__arrows {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.glide__arrow {
+  background-color: transparent;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  font-size: 24px;
+  margin: 0 10px;
+  transition: color 0.2s ease-in-out;
+}
+
+.glide__arrow:hover {
+  color: #666;
+}
+*/
