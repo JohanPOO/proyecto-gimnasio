@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Header from "./layouts/Header"
-import Principal from "./components/Principal"
-import LoginCliente from "./components/LoginCliente"
-import LoginGestion from "./components/LoginGestion"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./layouts/Header";
+import Principal from "./components/Principal";
+import LoginCliente from "./components/LoginCliente";
+import LoginGestion from "./components/LoginGestion";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
