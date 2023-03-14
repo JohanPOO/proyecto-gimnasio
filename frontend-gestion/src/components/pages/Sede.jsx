@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Sede = ({ sede, setSedes }) => {
+const Sede = ({ sede, setSedes, handleEditar }) => {
   const {
     ID_sede,
     Nombre,
@@ -8,11 +8,11 @@ const Sede = ({ sede, setSedes }) => {
     Nombre_distrito,
     Nombre_provincia,
     Estado_sede,
+    Url_imagen,
   } = sede;
-
   const cambiarEstadoSede = async (ID_sede) => {
     const { data } = await axios.delete(
-      `http://localhost:8000/api/eliminar-sede/${ID_sede}`
+      `${import.meta.env.VITE_API_URL}/eliminar-sede/${ID_sede}`
     );
     setSedes(data.results);
   };
@@ -29,9 +29,9 @@ const Sede = ({ sede, setSedes }) => {
         <p>{Nombre_provincia}</p>
       </td>
 
-      <td className="p-6">
+      <td className="p-6 space-y-2">
         <span
-          className={`inline-block rounded-full px-3 py-1 text-xl font-semibold ${
+          className={`inline-block rounded-full px-3 py-1 text-lg font-semibold ${
             Estado_sede === 1
               ? "bg-green-100 text-green-800"
               : "bg-red-100 text-red-800"
@@ -41,11 +41,11 @@ const Sede = ({ sede, setSedes }) => {
         </span>
       </td>
 
-      <td className="p-6 flex gap-3">
+      <td className="p-6 gap-3 space-y-2">
         <button
           type={"button"}
           className="text-blue-600 hover:text-blue-700 uppercase font-bold text-lg"
-          onClick={() => navigate(`/cliente/${id}/editar`)}
+          onClick={() => handleEditar(sede)}
         >
           Editar
         </button>

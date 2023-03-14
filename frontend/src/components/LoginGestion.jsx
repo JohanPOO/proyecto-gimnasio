@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Error from "./Error";
 
@@ -6,6 +7,8 @@ const LoginGestion = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({});
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,13 +23,13 @@ const LoginGestion = () => {
         }
       );
 
-      console.log(data);
       setError({ msg: data.msg, alerta: false });
       setTimeout(() => {
         setError({});
       }, 2000);
 
-      window.open("http://localhost:5174", "_blank");
+      window.open("http://localhost:8002", "_blank");
+      return navigate("/");
     } catch (error) {
       setError({ msg: error.response.data.msg, alerta: true });
       setTimeout(() => {

@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Error from "./Error";
 
-const Modal = ({ toggleModal, apiSede }) => {
+const Modal = ({ toggleModal, apiSede, editarSede }) => {
   const [nombre, setNombre] = useState("");
   const [direccion, setDireccion] = useState("");
   const [nombre_distrito, setNombre_distrito] = useState("");
@@ -11,12 +10,20 @@ const Modal = ({ toggleModal, apiSede }) => {
   const [url, setUrl] = useState("");
   const [error, setError] = useState({});
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (Object.keys(editarSede).length > 0) {
+      setNombre(editarSede.Nombre);
+      setDireccion(editarSede.Direccion);
+      setNombre_distrito(editarSede.Nombre_distrito);
+      setNombre_provincia(editarSede.Nombre_provincia);
+      setUrl(editarSede.Url_imagen);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const registro = {
+    const objetoSede = {
       nombre,
       direccion,
       nombre_distrito,
@@ -24,23 +31,45 @@ const Modal = ({ toggleModal, apiSede }) => {
       url,
     };
 
-    try {
-      const { data } = await axios.post(
-        "http://localhost:8000/api/registro-sede",
-        registro
-      );
-      setError({ msg: data.msg, alerta: false });
+    if (editarSede.ID_sede) {
+      try {
+        const { data } = await axios.put(
+          `${import.meta.env.VITE_API_URL}/editar-sede/${editarSede.ID_sede}`,
+          objetoSede
+        );
+        setError({ msg: data.msg, alerta: false });
 
-      setTimeout(() => {
-        setError({});
-        apiSede();
-        toggleModal();
-      }, 2000);
-    } catch (error) {
-      setError({ msg: error.response.data.msg, alerta: true });
-      setTimeout(() => {
-        setError({});
-      }, 2000);
+        setTimeout(() => {
+          setError({});
+          apiSede();
+          toggleModal();
+        }, 2000);
+      } catch (error) {
+        setError({ msg: error.response.data.msg, alerta: true });
+        setTimeout(() => {
+          setError({});
+        }, 2000);
+      }
+    } else {
+      try {
+        const { data } = await axios.post(
+          `${import.meta.env.VITE_API_URL}/registro-sede`,
+          objetoSede
+        );
+
+        setError({ msg: data.msg, alerta: false });
+
+        setTimeout(() => {
+          setError({});
+          apiSede();
+          toggleModal();
+        }, 2000);
+      } catch (error) {
+        setError({ msg: error.response.data.msg, alerta: true });
+        setTimeout(() => {
+          setError({});
+        }, 2000);
+      }
     }
   };
 
@@ -60,7 +89,7 @@ const Modal = ({ toggleModal, apiSede }) => {
             <div className="sm:flex sm:items-start">
               <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                 <h3 className="text-2xl font-bold leading-6 text-gray-900 mb-6 text-center uppercase">
-                  Registro de Sede
+                  {editarSede.Nombre ? "Editar Sede" : "Registro de Sede"}
                 </h3>
 
                 {/*Mensaje de Error*/}
@@ -133,7 +162,7 @@ const Modal = ({ toggleModal, apiSede }) => {
                       type="submit"
                       className="w-full uppercase inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-700 text-base font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm"
                     >
-                      Registrar
+                      {editarSede.Nombre ? "Editar Cambios" : "Registrar"}
                     </button>
                   </div>
                 </form>
@@ -147,7 +176,7 @@ const Modal = ({ toggleModal, apiSede }) => {
               onClick={toggleModal}
               className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
             >
-              Cancel
+              Cerrar
             </button>
           </div>
         </div>

@@ -4,7 +4,7 @@ const Header = () => {
   const location = useLocation();
   return (
     <div className="md:flex md:min-h-screen">
-      <aside className="md:w-1/4 bg-blue-900 px-5 py-10">
+      <aside className="md:w-1/5 bg-blue-900 px-5 py-10">
         <h2 className="text-4xl font-black text-center text-white">GESTIÓN</h2>
         <nav className="mt-10 text-center">
           <Link
@@ -24,6 +24,16 @@ const Header = () => {
             to="/sede-gestion"
           >
             Sede
+          </Link>
+          <Link
+            className={`${
+              location.pathname === "/instructor-gestion"
+                ? "text-blue-500"
+                : "text-white"
+            } text-2xl block mt-2 hover:text-blue-300`}
+            to="/instructor-gestion"
+          >
+            Instructor
           </Link>
         </nav>
       </aside>

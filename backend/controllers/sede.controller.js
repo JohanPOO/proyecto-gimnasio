@@ -71,19 +71,12 @@ const registroSede = async (req, res) => {
 
 const editarSede = async (req, res) => {
   const { id } = req.params;
-  const { nombre, direccion, nombre_distrito, nombre_provincia, url, estado } =
+  const { nombre, direccion, nombre_distrito, nombre_provincia, url } =
     req.body;
 
   try {
     if (
-      [
-        nombre,
-        direccion,
-        nombre_distrito,
-        nombre_provincia,
-        url,
-        estado,
-      ].includes("")
+      [nombre, direccion, nombre_distrito, nombre_provincia, url].includes("")
     ) {
       const error = new Error("No se permiten datos vacios");
       return res.status(400).json({ msg: error.message });
@@ -102,7 +95,6 @@ const editarSede = async (req, res) => {
       nombre_distrito,
       nombre_provincia,
       url,
-      estado,
       id
     );
 
@@ -113,6 +105,7 @@ const editarSede = async (req, res) => {
 
     return res.json({ msg: "Sede Actualizado" });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ msg: error.message });
   }
 };

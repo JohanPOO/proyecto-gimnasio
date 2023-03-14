@@ -3,6 +3,7 @@ import cors from "cors";
 import { router as routerCliente } from "./routes/usuarios_cliente.routes.js";
 import { router as routerGestion } from "./routes/usuarios_gestion.routes.js";
 import { router as routerSede } from "./routes/sedes.routes.js";
+import { router as routerInstructor } from "./routes/instructor.routes.js";
 
 const app = express();
 
@@ -24,12 +25,10 @@ app.use(cors(corsOptions));
 //Mapea el objeto a json
 app.use(express.json());
 
-const routes = [routerCliente, routerGestion, routerSede];
+const routes = [routerCliente, routerGestion, routerSede, routerInstructor];
 
 //Controla las rutas (RequestMapping)
 app.use("/api", routes);
-//app.use("/api", routerGestion);
-//app.use("/api", routerSede);
 
 //Puerto que se ejecuta el servidor
 const PORT = 8000;

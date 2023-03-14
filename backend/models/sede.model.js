@@ -4,7 +4,8 @@ const getSedes = async () => {
   //const sql = "Select * from sedes";
   const sql =
     "SELECT s.ID_sede, s.Nombre, s.Direccion, d.Nombre_distrito, p.Nombre_provincia," +
-    "s.Estado_sede FROM sedes s inner join distritos d ON s.ID_distrito = d.ID_distrito inner join provincias p ON d.ID_provincia = p.ID_provincia;";
+    "i.Url_imagen, s.Estado_sede FROM sedes s inner join imagenes i ON i.ID_Imagen = s.Id_imagen " +
+    "inner join distritos d ON s.ID_distrito = d.ID_distrito inner join provincias p ON d.ID_provincia = p.ID_provincia;";
   const [results] = await connection.execute(sql);
   return results;
 };
@@ -56,7 +57,6 @@ const putSede = async (
   nombre_distrito,
   nombre_provincia,
   url,
-  estado,
   id
 ) => {
   //Buscar el id de la provincia mediante la tabla sede, con el id de la sede
@@ -85,7 +85,7 @@ const putSede = async (
 
   //Buscamoos el id de la tabla promociones mediante la tabla sede, con el id sede
   const sqlpromociones =
-    "Select i.ID_Imagen from sedes s inner join imagenes i on s.ID_imagen = i.ID_imagen WHERE ID_sede=?";
+    "Select i.ID_Imagen from sedes s inner join imagenes i on s.ID_imagen = i.ID_Imagen WHERE ID_sede=?";
   const [imagen] = await connection.execute(sqlpromociones, [id]);
   const idimagen = imagen[0].ID_Imagen;
 
@@ -97,13 +97,12 @@ const putSede = async (
 
   //Actualizamos la tabla sede con los datos que se solicitan
   const sqlsede =
-    "UPDATE sedes SET Nombre=?, Direccion=?, ID_distrito=?, ID_imagen=?, Estado_sede=? WHERE ID_sede=?";
+    "UPDATE sedes SET Nombre=?, Direccion=?, ID_distrito=?, ID_imagen=? WHERE ID_sede=?";
   const [result] = await connection.execute(sqlsede, [
     nombre,
     direccion,
     iddistrito,
     idimagen,
-    estado,
     id,
   ]);
 
