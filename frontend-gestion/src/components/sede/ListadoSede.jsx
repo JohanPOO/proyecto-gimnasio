@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Sede from "./pages/Sede";
+import Sede from "./Sede";
 import Modal from "./ModalSede";
 
 const ListadoSede = () => {

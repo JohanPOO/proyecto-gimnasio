@@ -1,11 +1,15 @@
 import { connection } from "../database/db.js";
 
 const getSedes = async () => {
-  //const sql = "Select * from sedes";
-  const sql =
+  /*const sql =
     "SELECT s.ID_sede, s.Nombre, s.Direccion, d.Nombre_distrito, p.Nombre_provincia," +
     "i.Url_imagen, s.Estado_sede FROM sedes s inner join imagenes i ON i.ID_Imagen = s.Id_imagen " +
-    "inner join distritos d ON s.ID_distrito = d.ID_distrito inner join provincias p ON d.ID_provincia = p.ID_provincia;";
+    "inner join distritos d ON s.ID_distrito = d.ID_distrito inner join provincias p ON d.ID_provincia = p.ID_provincia;";*/
+
+  const sql =
+    "SELECT s.ID_sede, s.Nombre, s.Direccion, s.Url_foto, d.Nombre_distrito,p.Nombre_provincia, dp.Nombre_departamento," +
+    " s.Estado_sede FROM sedes s inner join distritos d ON s.ID_distrito = d.ID_distrito " +
+    "inner join provincias p ON d.ID_provincia = p.ID_provincia inner join departamentos dp on p.ID_departamento = dp.ID_departamento";
   const [results] = await connection.execute(sql);
   return results;
 };
@@ -17,35 +21,46 @@ const getByIdSede = async (id) => {
 };
 
 const postRegistroSede = async (
-  nombre_provincia,
-  nombre_distrito,
-  url,
   nombre,
-  direccion
+  direccion,
+  nombre_distrito,
+  nombre_provincia,
+  nombre_departamento,
+  url,
+  estado
 ) => {
-  const sqlProvincia = "INSERT INTO provincias (Nombre_provincia) VALUES (?)";
+  //PRIMERO: Codigo para registrar un departamento. Resultado el id del departamento
+  const sqlDepartamento =
+    "INSERT INTO departamentos (Nombre_departamento) VALUES (?)";
+  const [departamento, fieldsDP] = await connection.execute(sqlDepartamento, [
+    nombre_departamento,
+  ]);
+
+  //SEGUNDO: Codigo para registrar segundo una provincia. Resultado el id de la provincia
+  const sqlProvincia =
+    "INSERT INTO provincias (ID_departamento, Nombre_provincia) VALUES (?,?)";
   const [provincia, fieldsP] = await connection.execute(sqlProvincia, [
+    departamento.insertId,
     nombre_provincia,
   ]);
 
+  //TERCERO: Codigo para registrar un distrito. Resultado el id de la distrito
   const sqlDistrito =
-    "INSERT INTO distritos (Nombre_distrito, ID_provincia) Values (?,?)";
+    "INSERT INTO distritos (ID_provincia, Nombre_distrito) Values (?,?)";
   const [distrito, fieldsD] = await connection.execute(sqlDistrito, [
-    nombre_distrito,
     provincia.insertId,
+    nombre_distrito,
   ]);
 
-  const sqlImagen = "INSERT INTO imagenes (Url_imagen) VALUES (?)";
-  const [imagen, fieldsI] = await connection.execute(sqlImagen, [url]);
-
+  //CUARTO: Codigo para registrar una sede.
   const sqlSede =
-    "INSERT INTO sedes (Nombre, Direccion, ID_distrito, ID_imagen, Estado_sede) VALUES (?,?,?,?,?)";
+    "INSERT INTO sedes (ID_distrito, Nombre, Direccion, Url_foto, Estado_sede) VALUES (?,?,?,?,?)";
   const [sede, fieldsS] = await connection.execute(sqlSede, [
+    distrito.insertId,
     nombre,
     direccion,
-    distrito.insertId,
-    imagen.insertId,
-    1,
+    url,
+    estado,
   ]);
 
   return sede;
@@ -56,10 +71,27 @@ const putSede = async (
   direccion,
   nombre_distrito,
   nombre_provincia,
+  nombre_departamento,
   url,
+  estado,
   id
 ) => {
-  //Buscar el id de la provincia mediante la tabla sede, con el id de la sede
+  //PRIMERO: Buscar el id del departamento mediante la tabla sede, con el id de la sede
+  const sqldepartamento =
+    "SELECT dp.ID_departamento from sedes s INNER JOIN distritos d on " +
+    "s.ID_distrito = d.ID_distrito inner join provincias p on d.ID_provincia = p.ID_provincia " +
+    "inner join departamentos dp on  p.ID_departamento = dp.ID_departamento Where ID_sede = ?";
+
+  const [departamento] = await connection.execute(sqldepartamento, [id]);
+  const iddepartamento = departamento[0].ID_departamento;
+
+  //Actualizamos el dato de la tabla departamentos.
+  await connection.execute(
+    "UPDATE departamentos SET Nombre_departamento=? WHERE ID_departamento=?",
+    [nombre_departamento, iddepartamento]
+  );
+
+  //SEGUNDO: Buscar el id de la provincia mediante la tabla sede, con el id de la sede
   const sqlprovincia =
     "SELECT p.ID_provincia from sedes s INNER JOIN distritos d on s.ID_distrito = d.ID_distrito inner join provincias p on d.ID_provincia = p.ID_provincia Where ID_sede = ?";
   const [provincia] = await connection.execute(sqlprovincia, [id]);
@@ -71,7 +103,7 @@ const putSede = async (
     [nombre_provincia, idprovincia]
   );
 
-  //Buscar el id del distrito mediante la tabla sede, con el id de la sede
+  //TERCERO: Buscar el id del distrito mediante la tabla sede, con el id de la sede
   const sqldistrito =
     "Select d.ID_distrito from sedes s inner join distritos d on s.ID_distrito = d.ID_distrito Where ID_sede=?";
   const [distrito] = await connection.execute(sqldistrito, [id]);
@@ -83,26 +115,15 @@ const putSede = async (
     [nombre_distrito, iddistrito]
   );
 
-  //Buscamoos el id de la tabla promociones mediante la tabla sede, con el id sede
-  const sqlpromociones =
-    "Select i.ID_Imagen from sedes s inner join imagenes i on s.ID_imagen = i.ID_Imagen WHERE ID_sede=?";
-  const [imagen] = await connection.execute(sqlpromociones, [id]);
-  const idimagen = imagen[0].ID_Imagen;
-
-  //Actualizamos la url de la tabla promociones.
-  await connection.execute(
-    "UPDATE imagenes SET Url_imagen=? Where ID_Imagen=?",
-    [url, idimagen]
-  );
-
-  //Actualizamos la tabla sede con los datos que se solicitan
+  //CUARTO: Actualizamos la tabla sede con los datos que se solicitan
   const sqlsede =
-    "UPDATE sedes SET Nombre=?, Direccion=?, ID_distrito=?, ID_imagen=? WHERE ID_sede=?";
+    "UPDATE sedes SET ID_distrito=?, Nombre=?, Direccion=?, Url_foto=?, Estado_sede=? WHERE ID_sede=?";
   const [result] = await connection.execute(sqlsede, [
+    iddistrito,
     nombre,
     direccion,
-    iddistrito,
-    idimagen,
+    url,
+    estado,
     id,
   ]);
 

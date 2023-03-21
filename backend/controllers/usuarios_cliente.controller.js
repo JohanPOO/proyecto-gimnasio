@@ -1,20 +1,6 @@
-import {
-  getUsuariosCliente,
-  buscarUsuarioCliente,
-} from "../models/usuarios_cliente.model.js";
+import { buscarUsuarioCliente } from "../models/usuarios_cliente.model.js";
 
 import generarJWT from "../helpers/generarJWT.js";
-
-const usuarios_cliente = async (req, res) => {
-  try {
-    const [rows] = await getUsuariosCliente();
-    res.json(rows);
-  } catch (error) {
-    return res.status(500).json({
-      msg: "Algo salio mal",
-    });
-  }
-};
 
 const inicioSesionCliente = async (req, res) => {
   try {
@@ -46,4 +32,4 @@ const inicioSesionCliente = async (req, res) => {
   }
 };
 
-export { usuarios_cliente, inicioSesionCliente };
+export { inicioSesionCliente };

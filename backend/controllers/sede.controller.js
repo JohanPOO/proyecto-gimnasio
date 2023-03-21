@@ -39,11 +39,26 @@ const buscarSede = async (req, res) => {
 };
 
 const registroSede = async (req, res) => {
-  const { nombre_provincia, nombre_distrito, url, nombre, direccion } =
-    req.body;
+  const {
+    nombre,
+    direccion,
+    nombre_distrito,
+    nombre_provincia,
+    nombre_departamento,
+    url,
+    estado,
+  } = req.body;
 
   if (
-    [nombre_provincia, nombre_distrito, url, nombre, direccion].includes("")
+    [
+      nombre,
+      direccion,
+      nombre_distrito,
+      nombre_provincia,
+      nombre_departamento,
+      url,
+      estado,
+    ].includes("")
   ) {
     const error = new Error("No se permiten datos vacios");
     return res.status(400).json({ msg: error.message });
@@ -51,11 +66,13 @@ const registroSede = async (req, res) => {
 
   try {
     const result = await postRegistroSede(
-      nombre_provincia,
-      nombre_distrito,
-      url,
       nombre,
-      direccion
+      direccion,
+      nombre_distrito,
+      nombre_provincia,
+      nombre_departamento,
+      url,
+      estado
     );
 
     if (result.affectedRows < 1) {
@@ -71,12 +88,27 @@ const registroSede = async (req, res) => {
 
 const editarSede = async (req, res) => {
   const { id } = req.params;
-  const { nombre, direccion, nombre_distrito, nombre_provincia, url } =
-    req.body;
+  const {
+    nombre,
+    direccion,
+    nombre_distrito,
+    nombre_provincia,
+    nombre_departamento,
+    url,
+    estado,
+  } = req.body;
 
   try {
     if (
-      [nombre, direccion, nombre_distrito, nombre_provincia, url].includes("")
+      [
+        nombre,
+        direccion,
+        nombre_distrito,
+        nombre_provincia,
+        nombre_departamento,
+        url,
+        estado,
+      ].includes("")
     ) {
       const error = new Error("No se permiten datos vacios");
       return res.status(400).json({ msg: error.message });
@@ -94,7 +126,9 @@ const editarSede = async (req, res) => {
       direccion,
       nombre_distrito,
       nombre_provincia,
+      nombre_departamento,
       url,
+      estado,
       id
     );
 

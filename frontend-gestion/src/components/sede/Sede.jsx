@@ -7,9 +7,11 @@ const Sede = ({ sede, setSedes, handleEditar }) => {
     Direccion,
     Nombre_distrito,
     Nombre_provincia,
+    Nombre_departamento,
     Estado_sede,
-    Url_imagen,
+    Url_foto,
   } = sede;
+
   const cambiarEstadoSede = async (ID_sede) => {
     const { data } = await axios.delete(
       `${import.meta.env.VITE_API_URL}/eliminar-sede/${ID_sede}`

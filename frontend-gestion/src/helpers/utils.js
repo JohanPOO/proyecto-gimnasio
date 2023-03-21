@@ -15,3 +15,12 @@ export const formatFecha = (date) => {
   return fechaFormateada;
   //console.log(fechaFormateada); // Ejemplo de salida: "2023-03-14"
 };
+
+export const mapeoHora = (hora) => {
+  const time = new Date("1970-01-01T" + hora + "Z").toLocaleTimeString(
+    "en-US",
+    { hour: "numeric", minute: "numeric", hour12: true }
+  );
+
+  return time;
+};

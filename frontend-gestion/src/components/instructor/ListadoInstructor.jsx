@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ModalInstructor from "./ModalInstructor";
-import Instructor from "./pages/Instructor";
+import Instructor from "./Instructor";
 
 const ListadoInstructor = () => {
   const [instructores, setInstructores] = useState([]);

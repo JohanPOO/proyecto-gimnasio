@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Error from "./Error";
-import { formatFecha } from "../helpers/utils";
+import Error from "../Error";
+import { formatFecha } from "../../helpers/utils";
 
 const ModalInstructor = ({ toggleModal, apiInstructor, editarInstructor }) => {
   const [sedes, setSedes] = useState([]);
@@ -29,14 +29,13 @@ const ModalInstructor = ({ toggleModal, apiInstructor, editarInstructor }) => {
       setEspecialidad(editarInstructor.Especialidad);
       setTrayectoria(editarInstructor.Trayectoria);
       setFechaRegistro(formatFecha(editarInstructor.Fecha_registro));
-      setUrl(editarInstructor.Url_imagen);
+      setUrl(editarInstructor.Url_foto);
       setIdSede(editarInstructor.ID_sede);
       setEstado(editarInstructor.Estado_instructor);
     }
   }, []);
 
-  useEffect(() => {}, [editarInstructor]);
-
+  //useEffect(() => {}, [editarInstructor]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const objetoInstructor = {

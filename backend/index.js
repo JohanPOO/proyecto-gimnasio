@@ -4,6 +4,7 @@ import { router as routerCliente } from "./routes/usuarios_cliente.routes.js";
 import { router as routerGestion } from "./routes/usuarios_gestion.routes.js";
 import { router as routerSede } from "./routes/sedes.routes.js";
 import { router as routerInstructor } from "./routes/instructor.routes.js";
+import { router as routerClases } from "./routes/clases.routes.js";
 
 const app = express();
 
@@ -25,7 +26,13 @@ app.use(cors(corsOptions));
 //Mapea el objeto a json
 app.use(express.json());
 
-const routes = [routerCliente, routerGestion, routerSede, routerInstructor];
+const routes = [
+  routerCliente,
+  routerGestion,
+  routerSede,
+  routerInstructor,
+  routerClases,
+];
 
 //Controla las rutas (RequestMapping)
 app.use("/api", routes);

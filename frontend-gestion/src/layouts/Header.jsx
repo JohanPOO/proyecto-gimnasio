@@ -35,6 +35,28 @@ const Header = () => {
           >
             Instructor
           </Link>
+
+          <Link
+            className={`${
+              location.pathname === "/usuario-gestion"
+                ? "text-blue-500"
+                : "text-white"
+            } text-2xl block mt-2 hover:text-blue-300`}
+            to="/usuario-gestion"
+          >
+            Usuarios
+          </Link>
+
+          <Link
+            className={`${
+              location.pathname === "/clase-gestion"
+                ? "text-blue-500"
+                : "text-white"
+            } text-2xl block mt-2 hover:text-blue-300`}
+            to="/clase-gestion"
+          >
+            Clases
+          </Link>
         </nav>
       </aside>
       <main className="md:w-3/4 p-10 md:min-h-screen overflow-scroll bg-">

@@ -28,8 +28,10 @@ const LoginGestion = () => {
         setError({});
       }, 2000);
 
-      window.open("http://localhost:8002", "_blank");
-      return navigate("/");
+      setTimeout(() => {
+        window.open("http://localhost:8002", "_blank");
+        return navigate("/");
+      }, 2000);
     } catch (error) {
       setError({ msg: error.response.data.msg, alerta: true });
       setTimeout(() => {

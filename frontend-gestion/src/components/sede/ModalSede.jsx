@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Error from "./Error";
+import Error from "../Error";
 
 const Modal = ({ toggleModal, apiSede, editarSede }) => {
   const [nombre, setNombre] = useState("");
   const [direccion, setDireccion] = useState("");
   const [nombre_distrito, setNombre_distrito] = useState("");
   const [nombre_provincia, setNombre_provincia] = useState("");
+  const [nombre_departamento, setNombre_departamento] = useState("");
   const [url, setUrl] = useState("");
+  const [estado, setEstado] = useState(1);
   const [error, setError] = useState({});
 
   useEffect(() => {
@@ -16,7 +18,9 @@ const Modal = ({ toggleModal, apiSede, editarSede }) => {
       setDireccion(editarSede.Direccion);
       setNombre_distrito(editarSede.Nombre_distrito);
       setNombre_provincia(editarSede.Nombre_provincia);
-      setUrl(editarSede.Url_imagen);
+      setNombre_departamento(editarSede.Nombre_departamento);
+      setUrl(editarSede.Url_foto);
+      setEstado(editarSede.Estado_sede);
     }
   }, []);
 
@@ -28,7 +32,9 @@ const Modal = ({ toggleModal, apiSede, editarSede }) => {
       direccion,
       nombre_distrito,
       nombre_provincia,
+      nombre_departamento,
       url,
+      estado,
     };
 
     if (editarSede.ID_sede) {
@@ -71,6 +77,10 @@ const Modal = ({ toggleModal, apiSede, editarSede }) => {
         }, 2000);
       }
     }
+  };
+
+  const handleEstado = (e) => {
+    setEstado(e.target.value === "true" ? 1 : 0);
   };
 
   const { msg } = error;
@@ -148,6 +158,18 @@ const Modal = ({ toggleModal, apiSede, editarSede }) => {
 
                     <div className="mb-4">
                       <label className="block text font-medium text-gray-700">
+                        Departamento
+                      </label>
+                      <input
+                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2"
+                        placeholder="Nombre del departamento"
+                        value={nombre_departamento}
+                        onChange={(e) => setNombre_departamento(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="block text font-medium text-gray-700">
                         Imagen
                       </label>
                       <input
@@ -156,6 +178,49 @@ const Modal = ({ toggleModal, apiSede, editarSede }) => {
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                       />
+                    </div>
+
+                    {/* RADIO BUTTON DEL ESTADO DE LA SEDE*/}
+                    <div className="mb-4">
+                      <span className="block text text-gray-700 font-medium mb-2">
+                        Estado
+                      </span>
+                      <div className="flex items-center justify-evenly">
+                        <div className="flex items-center">
+                          <input
+                            type="radio"
+                            id="activo"
+                            name="activo"
+                            value="true"
+                            checked={estado}
+                            onChange={handleEstado}
+                            className="form-radio h-4 w-4 text-blue-600"
+                          />
+                          <label
+                            htmlFor="activo"
+                            className="ml-2 block text-gray-700 font-bold"
+                          >
+                            Activo
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            type="radio"
+                            id="inactivo"
+                            name="activo"
+                            value="false"
+                            checked={!estado}
+                            onChange={handleEstado}
+                            className="form-radio h-4 w-4 text-blue-600"
+                          />
+                          <label
+                            htmlFor="inactivo"
+                            className="ml-2 block text-gray-700 font-bold"
+                          >
+                            Inactivo
+                          </label>
+                        </div>
+                      </div>
                     </div>
 
                     <button

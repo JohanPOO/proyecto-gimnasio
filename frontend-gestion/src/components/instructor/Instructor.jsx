@@ -29,12 +29,10 @@ const Instructor = ({ instructor, apiInstructor, handleEditar }) => {
 
       <td className="p-2 space-y-2">
         <p className="text-2xl text-gray-800">{Especialidad}</p>
-        <p>{Trayectoria}</p>
       </td>
 
       <td className="p-2 space-y-2">
         <p className="text-2xl text-gray-800">{mapeoFecha(Fecha_registro)}</p>
-        <p>{NombreSede}</p>
       </td>
 
       <td className="p-2 space-y-2">
