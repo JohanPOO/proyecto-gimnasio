@@ -20,7 +20,7 @@ const ListadoUsuario = () => {
       console.log(error);
     }
   };
-  console.log(usuarios);
+
   useEffect(() => {
     apiUsuario();
   }, []);

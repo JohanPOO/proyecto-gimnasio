@@ -2,6 +2,7 @@ import {
   getClases,
   getByIdClase,
   postClase,
+  putClase,
   deleteClase,
 } from "../models/clases.model.js";
 
@@ -74,6 +75,68 @@ const registroClase = async (req, res) => {
   }
 };
 
+//EndPoint para editar una clase
+const editarClase = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      nombre,
+      url,
+      descripcion,
+      idInstructor,
+      fecha,
+      duracion,
+      hora,
+      estado,
+    } = req.body;
+
+    if (
+      idInstructor < 1 ||
+      [
+        nombre,
+        url,
+        descripcion,
+        idInstructor,
+        fecha,
+        duracion,
+        hora,
+        estado,
+      ].includes("")
+    ) {
+      const error = new Error("No se permiten campos vacios o erroneos");
+      return res.status(400).json({ msg: error.message });
+    }
+
+    const clase = await getByIdClase(id);
+
+    if (Object.keys(clase).length === 0) {
+      const error = new Error("Clase No Encontrada");
+      return res.status(404).json({ msg: error.message });
+    }
+
+    const result = await putClase({
+      id,
+      nombre,
+      url,
+      descripcion,
+      idInstructor,
+      fecha,
+      duracion,
+      hora,
+      estado,
+    });
+
+    if (result.affectedRows === 0) {
+      const error = new Error("Clase No Actualizada");
+      return res.status(304).json({ msg: error.message });
+    }
+
+    return res.status(200).json({ msg: "Clase Actualizada" });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
 //EndPoint Cambiar estado de la clase
 const eliminarClase = async (req, res) => {
   try {
@@ -102,4 +165,4 @@ const eliminarClase = async (req, res) => {
   }
 };
 
-export { obtenerClases, registroClase, eliminarClase };
+export { obtenerClases, registroClase, editarClase, eliminarClase };

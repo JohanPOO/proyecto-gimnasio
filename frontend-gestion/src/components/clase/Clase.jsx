@@ -25,19 +25,19 @@ const Clase = ({ clase, apiClase, handleEditar }) => {
       </td>
 
       <td className="p-2 space-y-2">
-        <p className="text-2xl text-gray-800">{Descripcion}</p>
+        <p className="text-xl text-gray-800">{Descripcion}</p>
       </td>
 
       <td className="p-2 space-y-2">
-        <p className="text-2xl text-gray-800">{mapeoFecha(Fecha)}</p>
+        <p className="text-xl text-gray-800">{mapeoFecha(Fecha)}</p>
       </td>
 
       <td className="p-2 space-y-2">
-        <p className="text-2xl text-gray-800">{Duracion}</p>
+        <p className="text-xl text-gray-800">{Duracion}</p>
       </td>
 
       <td className="p-2 space-y-2">
-        <p className="text-2xl text-gray-800">{Hora_inicio}</p>
+        <p className="text-xl text-gray-800">{Hora_inicio}</p>
       </td>
 
       <td className="p-2 space-y-2">

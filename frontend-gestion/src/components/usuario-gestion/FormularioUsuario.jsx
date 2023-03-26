@@ -196,7 +196,7 @@ const FormularioUsuario = ({
 
         <div className="mb-4 px-6">
           <label className="block text text-gray-700 font-medium mb-2">
-            Selecciona una Rol:
+            Selecciona un Rol:
           </label>
           <select
             className="form-select block w-full px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-black sm:text-sm"

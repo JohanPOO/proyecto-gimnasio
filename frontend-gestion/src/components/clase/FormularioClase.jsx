@@ -21,7 +21,7 @@ const FormularioClase = ({ apiClase, editarClase, toggleModal, setError }) => {
     );
     setInstructores(data);
   };
-  console.log(editarClase);
+
   useEffect(() => {
     apiInstructor();
     if (Object.keys(editarClase).length > 0) {
@@ -51,6 +51,26 @@ const FormularioClase = ({ apiClase, editarClase, toggleModal, setError }) => {
 
     if (editarClase.ID_clase) {
       //DATOS A EDITAR
+      try {
+        const { data } = await axios.put(
+          `${import.meta.env.VITE_API_URL}/editar-clase/${
+            editarClase.ID_clase
+          }`,
+          objetoClase
+        );
+        setError({ msg: data.msg, alerta: false });
+
+        setTimeout(() => {
+          setError({});
+          apiClase();
+          toggleModal();
+        }, 2000);
+      } catch (error) {
+        setError({ msg: error.response.data.msg, alerta: true });
+        setTimeout(() => {
+          setError({});
+        }, 2000);
+      }
     } else {
       try {
         const { data } = await axios.post(

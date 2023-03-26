@@ -50,6 +50,46 @@ export const postClase = async ({
   return results;
 };
 
+export const putClase = async ({
+  id,
+  nombre,
+  url,
+  descripcion,
+  idInstructor,
+  fecha,
+  duracion,
+  hora,
+  estado,
+}) => {
+  //PRIMERO: obtenemos el id del horario que debemos de actualizar
+  const sql =
+    "Select c.ID_horario from clases c inner join horarios h on c.ID_horario=h.ID_horario Where ID_clase=?";
+
+  const [horario] = await connection.execute(sql, [id]);
+  const idhorario = horario[0].ID_horario;
+
+  //SEGUNDO: actualizamos la tabla horarios con los nuevos campos
+  const sqlhorario =
+    "Update horarios SET Fecha=?, Duracion=?, Hora_inicio=? Where ID_horario=?";
+
+  await connection.execute(sqlhorario, [fecha, duracion, hora, idhorario]);
+
+  //TERCERO: actualizamos la tabla clases
+  const sqlclases =
+    "Update clases SET ID_horario=?, ID_instructor=?, Nombre=?, Url_foto=?, Descripcion=?, Estado_clase=? Where ID_clase=?";
+  const [result] = await connection.execute(sqlclases, [
+    idhorario,
+    idInstructor,
+    nombre,
+    url,
+    descripcion,
+    estado,
+    id,
+  ]);
+
+  return result;
+};
+
 export const deleteClase = async (id) => {
   const [estado] = await connection.execute(
     "Select Estado_clase from clases Where ID_clase = ?",
