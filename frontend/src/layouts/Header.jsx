@@ -39,7 +39,7 @@ const Header = () => {
             </Link>
           </div>
 
-          <nav className="flex space-x-4 font-bold">
+          {/*<nav className="flex space-x-4 font-bold">
             <Link to={"/"}>
               <p className="text-white hover:text-neutral-400 text-2xl">
                 Sedes
@@ -55,7 +55,7 @@ const Header = () => {
                 Clases
               </p>
             </Link>
-          </nav>
+          </nav>*/}
           <nav className="flex space-x-1 font-bold text-xl">
             <Dropdown />
             <div className="text-white">

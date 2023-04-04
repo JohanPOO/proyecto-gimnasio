@@ -80,7 +80,7 @@ const registroSede = async (req, res) => {
       return res.status(401).json({ msg: error.message });
     }
 
-    res.json({ id: result.insertId, msg: "Registro EXISTOSO" });
+    res.json({ id: result.insertId, msg: "Registro EXITOSO" });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }

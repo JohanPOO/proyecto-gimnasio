@@ -5,6 +5,8 @@ import { router as routerGestion } from "./routes/usuarios_gestion.routes.js";
 import { router as routerSede } from "./routes/sedes.routes.js";
 import { router as routerInstructor } from "./routes/instructor.routes.js";
 import { router as routerClases } from "./routes/clases.routes.js";
+import { router as routerTipoMembresias } from "./routes/tipomembresia.routes.js";
+import { router as routerGeneros } from "./routes/genero.routes.js";
 
 const app = express();
 
@@ -32,6 +34,8 @@ const routes = [
   routerSede,
   routerInstructor,
   routerClases,
+  routerTipoMembresias,
+  routerGeneros,
 ];
 
 //Controla las rutas (RequestMapping)

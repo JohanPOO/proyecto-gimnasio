@@ -11,7 +11,7 @@ const Instructor = ({ instructor }) => {
   } = instructor;
   return (
     <>
-      <div className="flex flex-row gap-6 bg-slate-200 shadow-xl p-6 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">
+      <div className="flex flex-row gap-6 bg-white rounded-md shadow-xl p-6 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">
         <div className="flex flex-col justify-center items-center md:items-start font-bold">
           <p>
             Nombre: <i className="font-normal">{Nombre_instructor}</i>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import Error from "./Error";
+import Error from "../Error";
 
 const LoginCliente = () => {
   const [username, setUsername] = useState("");
@@ -9,7 +9,7 @@ const LoginCliente = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // aquí puedes añadir la lógica para validar y enviar los datos del formulario al servidor
+    // aquí se añade la lógica para validar y enviar los datos del formulario al servidor
 
     try {
       const { data } = await axios.post(
@@ -19,10 +19,13 @@ const LoginCliente = () => {
           password,
         }
       );
-      console.log(data);
+
+      sessionStorage.setItem("token", data.token);
+
       setError({ msg: data.msg, alerta: false });
       setTimeout(() => {
         setError({});
+        window.location.href = "http://localhost:8001/";
       }, 2000);
     } catch (error) {
       setError({ msg: error.response.data.msg, alerta: true });

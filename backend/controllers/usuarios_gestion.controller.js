@@ -7,7 +7,7 @@ import {
   deleteUsuarioGestion,
   getRoles,
 } from "../models/usuarios_gestion.model.js";
-import generarJWT from "../helpers/generarJWT.js";
+import { generarJWT } from "../helpers/generarJWT.js";
 import {
   comprobarDatoRepetido,
   comprobarDatoRepetidoUpdate,

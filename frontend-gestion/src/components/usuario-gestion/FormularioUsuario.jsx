@@ -83,7 +83,7 @@ const FormularioUsuario = ({
           `${import.meta.env.VITE_API_URL}/registro-usuario-gestion`,
           objetoUsuario
         );
-        console.log(data);
+
         setError({ msg: data.msg, alerta: false });
         setTimeout(() => {
           setError({});

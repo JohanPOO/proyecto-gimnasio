@@ -1,7 +1,6 @@
 import { mapeoFecha } from "../helpers/utils.js";
 
 const Clase = ({ clase }) => {
-  console.log(clase);
   const {
     Nombre,
     Descripcion,
@@ -12,7 +11,7 @@ const Clase = ({ clase }) => {
     Url_foto,
   } = clase;
   return (
-    <div className="flex justify-center gap-6 bg-slate-300 shadow-xl p-6 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">
+    <div className="flex rounded justify-center gap-6 bg-white shadow-xl p-6 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">
       <div className="flex flex-col md:items-start font-bold w-full text-xl">
         <p className="text-center w-full mb-5 text-2xl uppercase">{Nombre}</p>
         <p className="mb-3 font-normal">{Descripcion}</p>

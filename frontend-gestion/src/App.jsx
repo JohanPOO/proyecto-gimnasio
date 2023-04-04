@@ -5,6 +5,7 @@ import ListadoSede from "./components/sede/ListadoSede";
 import ListadoInstructor from "./components/instructor/ListadoInstructor";
 import ListadoUsuario from "./components/usuario-gestion/ListadoUsuario";
 import ListadoClase from "./components/clase/ListadoClase";
+import ListadoTipoMembresia from "./components/tipomembresia/ListadoTipoMembresia";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/instructor-gestion" element={<ListadoInstructor />} />
           <Route path="/usuario-gestion" element={<ListadoUsuario />} />
           <Route path="/clase-gestion" element={<ListadoClase />} />
+          <Route path="/tipo-membresia" element={<ListadoTipoMembresia />} />
         </Route>
       </Routes>
     </BrowserRouter>

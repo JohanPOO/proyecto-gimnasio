@@ -1,6 +1,42 @@
-import { buscarUsuarioCliente } from "../models/usuarios_cliente.model.js";
+import {
+  getClientes,
+  getByIdCliente,
+  buscarUsuarioCliente,
+} from "../models/usuarios_cliente.model.js";
 
-import generarJWT from "../helpers/generarJWT.js";
+import { generarJWT, verificarJWT } from "../helpers/generarJWT.js";
+
+const obtenerClientes = async (req, res) => {
+  try {
+    const clientes = await getClientes();
+
+    if (Object.keys(clientes).length === 0) {
+      const error = new Error("No hay Clientes");
+      return res.status(404).json({ msg: error.message });
+    }
+
+    res.json(clientes);
+  } catch (error) {
+    return res.status(500).json({ msg: "Algo salio mal" });
+  }
+};
+
+const obtenerCliente = async (req, res) => {
+  try {
+    const { id } = verificarJWT(req.params.id);
+
+    const [cliente] = await getByIdCliente({ id });
+
+    if (!cliente) {
+      const error = new Error("El Cliente No Existe");
+      return res.status(404).json({ msg: error.message });
+    }
+
+    res.status(200).json(cliente);
+  } catch (error) {
+    return res.status(500).json({ msg: "Algo salio mal" });
+  }
+};
 
 const inicioSesionCliente = async (req, res) => {
   try {
@@ -20,16 +56,16 @@ const inicioSesionCliente = async (req, res) => {
       return res.status(404).json({ msg: error.message });
     }
 
-    console.log(usuarioCliente);
+    const jwtToken = generarJWT(usuarioCliente.ID_usuario);
+
     //Si el UsuarioCliente existe
     res.json({
-      id: usuarioCliente.ID_usuario,
       msg: "Inicio de Sesion",
-      token: generarJWT(usuarioCliente.ID_usuario),
+      token: jwtToken,
     });
   } catch (error) {
     return res.status(500).json({ msg: "Algo salio mal" });
   }
 };
 
-export { inicioSesionCliente };
+export { obtenerClientes, obtenerCliente, inicioSesionCliente };
