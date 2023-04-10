@@ -9,27 +9,10 @@ function Carrusel() {
 
   useEffect(() => {
     const callApi = async () => {
-      /*const response = await axios.get("https://api.pexels.com/v1/curated?page=2&per_page=4", {
-                headers: {
-                    "Authorization": API
-                }
-            })*/
+      const response = await axios.get("http://localhost:8000/api/afiches");
 
-      const responses = [
-        //"https://scontent-lim1-1.xx.fbcdn.net/v/t39.30808-6/292163226_3296707443931862_3675380885016704437_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=19026a&_nc_ohc=UI1zF52UQ3kAX-X7mry&_nc_ht=scontent-lim1-1.xx&oh=00_AfCiRz61GQRAngelyFB1_9RWUMWhSzm58rAa_xgnT39-Hw&oe=6402F86C",
-        "https://scontent-lim1-1.xx.fbcdn.net/v/t39.30808-6/294686894_3307662969502976_7028593091740882593_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=ff4-0SCKmVAAX9J6fPD&_nc_ht=scontent-lim1-1.xx&oh=00_AfB6Z5bhovWNfnL9LvWe3pKPHId9-kV_X-jojytUoQZ-Wg&oe=642E91EF",
-        "https://scontent-lim1-1.xx.fbcdn.net/v/t1.6435-9/72956513_2518626861739928_1550527389069475840_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=3C0htwdSQo8AX8EhfHi&_nc_ht=scontent-lim1-1.xx&oh=00_AfBeUIqfoDEGp9_vN2CYRcz4XbJ7UcJdRazegCiYuVHMlw&oe=6425DB4C",
-        "https://scontent-lim1-1.xx.fbcdn.net/v/t1.6435-9/208534723_3029332184002724_1821722694037210582_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=4LXFiXzFmZQAX_4kpbZ&_nc_ht=scontent-lim1-1.xx&oh=00_AfBsjJihUHL10GyI6voXuwLbAJeYATEn_WsL8ftBcBHpRw&oe=6425E56C",
-        "https://scontent-lim1-1.xx.fbcdn.net/v/t1.6435-9/207000415_3030718103864132_1736266185516642879_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=T6_nrH4oUnYAX8Zk5pO&_nc_ht=scontent-lim1-1.xx&oh=00_AfB6aQ5cBPdtCd32GhtbAQ3-nrbkOu8SO0yBrwS-CVspTw&oe=6425FE9C",
-      ];
-
-      /*const photos = response.data.photos;
-            const data = photos.map(function (url) {
-                return url.src.landscape
-            })*/
-
-      const data = responses.map(function (url) {
-        return url;
+      const data = response.data.map(function (afiche) {
+        return afiche.Url_afiche;
       });
 
       setImages(data);

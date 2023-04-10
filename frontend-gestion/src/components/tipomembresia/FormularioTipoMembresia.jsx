@@ -87,7 +87,7 @@ const FormularioTipoMembresia = ({
           <input
             className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2"
             autoFocus
-            placeholder="Nombre del tipo de membresia"
+            placeholder="Ejm: Membresia por 5 meses"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
           />

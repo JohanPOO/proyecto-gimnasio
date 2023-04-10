@@ -2,6 +2,8 @@ import {
   getClientes,
   getByIdCliente,
   buscarUsuarioCliente,
+  getByEmail,
+  UpdateContraseña,
 } from "../models/usuarios_cliente.model.js";
 
 import { generarJWT, verificarJWT } from "../helpers/generarJWT.js";
@@ -68,4 +70,58 @@ const inicioSesionCliente = async (req, res) => {
   }
 };
 
-export { obtenerClientes, obtenerCliente, inicioSesionCliente };
+const comprobarCorreo = async (req, res) => {
+  try {
+    const { correo } = req.params;
+    if ([correo].includes("")) {
+      const error = new Error("No se permite el campo vacio");
+      return res.status(404).json({ msg: error.message });
+    }
+
+    const [cliente] = await getByEmail({ correo });
+
+    if (!cliente) {
+      const error = new Error("El Correo No Existe");
+      return res.status(404).json({ msg: error.message });
+    }
+
+    res.status(200).json(cliente);
+  } catch (error) {
+    return res.status(500).json({ msg: error.msg });
+  }
+};
+
+const cambiarContraseña = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password, confirmPassword } = req.body;
+
+    if ([password, confirmPassword].includes("")) {
+      const error = new Error("No se permiten campos vacios");
+      return res.status(400).json({ msg: error.message });
+    }
+
+    if (password !== confirmPassword) {
+      const error = new Error("Las contraseñas no concuerdan");
+      return res.status(400).json({ msg: error.message });
+    }
+
+    const result = await UpdateContraseña({ id, password });
+    if (result.affectedRows === 0) {
+      const error = new Error("Sede No Actualizado");
+      return res.status(304).json({ msg: error.message });
+    }
+
+    return res.json({ msg: "Contraseña Actualizado" });
+  } catch (error) {
+    return res.status(500).json({ msg: error.msg });
+  }
+};
+
+export {
+  obtenerClientes,
+  obtenerCliente,
+  inicioSesionCliente,
+  comprobarCorreo,
+  cambiarContraseña,
+};

@@ -8,7 +8,7 @@ const Dropdown = () => {
   useEffect(() => {
     setToken(sessionStorage.getItem("token"));
   }, []);
-  console.log(token);
+
   return (
     <div className="inline-flex ">
       {token ? (

@@ -8,6 +8,7 @@ const DatosMembresia = ({
   renovacion,
   setRenovacion,
   setTipoMemb,
+  setTipoMembNombre,
 }) => {
   const { sedes, tiposMembresias } = useContext(DataContext);
 
@@ -15,6 +16,7 @@ const DatosMembresia = ({
 
   useEffect(() => {
     setTipoMemb(tipomembresia.ID_tip_memb);
+    setTipoMembNombre(tipomembresia.Nombre);
   }, []);
 
   const tipomembresia = tiposMembresias.find(
@@ -76,7 +78,7 @@ const DatosMembresia = ({
               Activo
             </label>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center mb-3">
             <input
               type="radio"
               id="inactivo"

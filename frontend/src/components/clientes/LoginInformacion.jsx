@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { DataContext } from "../../context/DataContext";
 
@@ -7,7 +7,31 @@ const LoginInformacion = () => {
   const { id } = useParams();
 
   const data = clientes.find((cliente) => cliente.ID_usuario === Number(id));
-  console.log(data);
+
+  const data2 = data;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/renovar-membresia",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ data2 }),
+        }
+      );
+
+      const data = await response.json();
+      window.location.href = data.links[1].href;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div
       className={`${
@@ -36,7 +60,7 @@ const LoginInformacion = () => {
             <p className="text-lg font-medium mb-4">
               Número Celular: {data.Numero_celular}
             </p>
-            <p className="text-lg font-medium mb-2">
+            <div className="text-lg font-medium mb-2">
               Estado de Membresia:{" "}
               {data.Estado_membresia === 1 ? (
                 <p className="inline p-2 rounded-md bg-green-600 text-white">
@@ -47,18 +71,20 @@ const LoginInformacion = () => {
                   Desactivado
                 </p>
               )}
-            </p>
+            </div>
           </section>
           {data.Estado_membresia !== 1 && (
             <section className="mt-10 md:mt-0">
               <div className="flex flex-col justify-center text-center gap-3 h-full">
-                <p className="text-3xl font-bold uppercase">
+                <div className="text-3xl font-bold uppercase">
                   <p className="text-blue-600 inline">Activa</p>{" "}
                   <p className="text-green-500 inline">tu membresia</p>
-                </p>
-                <button className="p-4 bg-blue-300 rounded-md inline">
-                  Click Aqui
-                </button>
+                </div>
+                <form onSubmit={handleSubmit}>
+                  <button className="w-full p-4 bg-blue-300 rounded-md inline">
+                    Click Aqui
+                  </button>
+                </form>
               </div>
             </section>
           )}

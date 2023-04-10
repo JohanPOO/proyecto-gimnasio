@@ -167,14 +167,14 @@ const editarUsuarioGestion = async (req, res) => {
       const error = new Error("Error en la longitud del celular");
       return res.status(406).json({ msg: error.message });
     }
-
+    console.log(id);
     const repetido = await comprobarDatoRepetidoUpdate({
       celular,
       dni,
       username,
       id,
     });
-
+    console.log(repetido);
     if (repetido.duplicado) {
       return res.status(406).json({ msg: repetido.msg });
     }

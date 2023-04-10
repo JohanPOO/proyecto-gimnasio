@@ -29,14 +29,14 @@ const Sede = ({ sede }) => {
 
       <h2 className="text-xl font-semibold mb-2">{Direccion}</h2>
       <img src={Url_foto} />
-      <div className=" flex flex-col justify-between flex-1">
+      {/*<div className=" flex flex-col justify-between flex-1">
         <Link
           to={`/sedes/${ID_sede}`}
           className="bg-blue-500 text-white text-center py-2 rounded hover:bg-blue-600 mt-4"
         >
           Mas info
         </Link>
-      </div>
+    </div>*/}
       <div className="absolute top-0 right-0 -mt-8 -mr-6 z-10">
         <div
           className={`${

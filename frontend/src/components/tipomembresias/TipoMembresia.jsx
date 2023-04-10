@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const TipoMembresia = ({ tipo }) => {
   const { ID_tip_memb, Nombre, Precio } = tipo;
-  console.log(tipo);
+
   return (
     <div
       className={`${Precio <= 10.0 && "bg-green-400"} 

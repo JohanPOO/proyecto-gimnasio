@@ -13,6 +13,7 @@ import SedeDetalle from "./components/sedes/SedeDetalle";
 
 import RegistroMembresia from "./components/membresia/RegistroMembresia";
 import { DataProvider } from "./context/DataContext";
+import ConfirmarEmail from "./components/clientes/ConfirmarEmail";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               element={<LoginInformacion />}
             />
             <Route path="/tipomembresia/:id" element={<RegistroMembresia />} />
+            <Route path="/confirmar-email" element={<ConfirmarEmail />} />
           </Route>
         </Routes>
       </DataProvider>

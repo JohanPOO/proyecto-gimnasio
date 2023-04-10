@@ -51,7 +51,9 @@ async function comprobarDatoRepetidoUpdate(dato) {
 
     if (rows.length > 0) {
       let result = { duplicado: false };
+
       rows.forEach((row) => {
+        console.log(row);
         if (row.Numero_celular === dato.celular) {
           result = { duplicado: true, msg: "El celular ya existe" };
           return;
@@ -64,12 +66,15 @@ async function comprobarDatoRepetidoUpdate(dato) {
 
         if (row.Username === dato.username) {
           result = { duplicado: true, msg: "El nombre del usuario ya existe" };
+
           return;
         }
+        console.log("ga");
       });
 
       return result;
     } else {
+      console.log(result);
       return {
         duplicado: false,
       };

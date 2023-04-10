@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../../context/DataContext";
+import Error from "../Error";
 //import { useParams } from "react-router-dom";
 
 import DatosMembresia from "./DatosMembresia";
 
-const FormularioMembresia = () => {
+const FormularioMembresia = ({ precio, descripcion }) => {
   const [idGenero, setIdGenero] = useState(1);
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
@@ -17,8 +18,10 @@ const FormularioMembresia = () => {
 
   const [idSede, setIdSede] = useState(1);
   const [tipoMemb, setTipoMemb] = useState(1);
+  const [tipoMembNombre, setTipoMembNombre] = useState("");
   const [renovacion, setRenovacion] = useState(1);
 
+  const [error, setError] = useState({});
   const [isExpanded, setIsExpanded] = useState(false);
 
   const { generos } = useContext(DataContext);
@@ -28,25 +31,66 @@ const FormularioMembresia = () => {
     (tipo) => tipo.ID_tip_memb === Number(id)
   );*/
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
-      idGenero,
-      nombre,
-      apellidos,
-      celular,
-      dni,
-      correo,
-      fechaNacimiento,
-      usuario,
-      contraseña,
-      idSede,
-      tipoMemb,
-      renovacion,
-    };
+    try {
+      const dataMembresia = {
+        idGenero,
+        nombre,
+        apellidos,
+        celular,
+        dni,
+        correo,
+        fechaNacimiento,
+        usuario,
+        contraseña,
+        idSede,
+        tipoMemb,
+        tipoMembNombre,
+        renovacion,
+        precio,
+        descripcion,
+      };
 
-    console.log(data);
+      if (
+        [
+          idGenero,
+          nombre,
+          apellidos,
+          celular,
+          dni,
+          correo,
+          fechaNacimiento,
+          usuario,
+          contraseña,
+          idSede,
+          tipoMemb,
+          tipoMembNombre,
+          renovacion,
+          precio,
+          descripcion,
+        ].includes("")
+      ) {
+        setError({ alerta: true, msg: "No se permiten campos vacios" });
+        setTimeout(() => {
+          setError({});
+        }, 2000);
+        return;
+      }
+      const response = await fetch("http://localhost:8000/api/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ dataMembresia }),
+      });
+
+      const data = await response.json();
+      window.location.href = data.links[1].href;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const toggleExpansion = () => {
@@ -56,6 +100,7 @@ const FormularioMembresia = () => {
   return (
     <div className="bg-white border border-gray-300 rounded-lg p-6">
       <form onSubmit={handleSubmit}>
+        {error.alerta && <Error error={error} />}
         <div className="flex justify-start gap-4">
           <div className="mb-6 w-full">
             <label htmlFor="nombre" className="text-lg font-medium mb-2 block">
@@ -191,7 +236,7 @@ const FormularioMembresia = () => {
               Contraseña
             </label>
             <input
-              type="text"
+              type="password"
               id="contraseña"
               name="dncontraseñai"
               placeholder="Ingresa tu Contraseña"
@@ -219,13 +264,14 @@ const FormularioMembresia = () => {
             setRenovacion={setRenovacion}
             tipoMemb={tipoMemb}
             setTipoMemb={setTipoMemb}
+            setTipoMembNombre={setTipoMembNombre}
           />
         )}
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-bold text py-2 px-4 rounded-lg"
         >
-          Registrarse
+          PAGAR CON PAYPAL
         </button>
       </form>
     </div>

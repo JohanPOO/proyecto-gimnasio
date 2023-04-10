@@ -68,6 +68,17 @@ const Header = () => {
           >
             Tipos de Membresias
           </Link>
+
+          <Link
+            className={`${
+              location.pathname === "/membresia-gestion"
+                ? "text-blue-500"
+                : "text-white"
+            } text-2xl block mt-2 hover:text-blue-300`}
+            to="/membresia-gestion"
+          >
+            Membresias
+          </Link>
         </nav>
       </aside>
       <main className="md:w-3/4 p-10 md:min-h-screen overflow-scroll bg-">
