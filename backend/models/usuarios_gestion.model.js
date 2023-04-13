@@ -16,11 +16,12 @@ export const getByIdUsuarioGestion = async (id) => {
 
 export const buscarUsuarioGestion = async (Username, Contraseña) => {
   const sql =
-    "SELECT * from usuarios u INNER JOIN roles r on r.ID_rol = u.ID_rol WHERE Username = ? and Contraseña = ? and Nombre_rol NOT IN (?)";
+    "SELECT * from usuarios u INNER JOIN roles r on r.ID_rol = u.ID_rol WHERE Username = ? and Contraseña = ? and Nombre_rol NOT IN (?) and Estado_usuario=?";
   const [rows] = await connection.execute(sql, [
     Username,
     Contraseña,
     "Cliente",
+    1,
   ]);
   return await rows;
 };

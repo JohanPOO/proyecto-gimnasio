@@ -7,10 +7,8 @@ const CardTipoMembresias = () => {
 
   return (
     <>
-      <p className="font-bold uppercase text-3xl text-center">
-        ----------------------------MEMBRESIAS----------------------------
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-2 justify-center py-10 text-black">
+      <p className="font-bold uppercase text-5xl text-center">MEMBRESIAS</p>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-2 content-center justify-center py-10 text-black text-center">
         {tiposMembresias.map((tipo) => (
           <TipoMembresia key={tipo.ID_tip_memb} tipo={tipo} />
         ))}

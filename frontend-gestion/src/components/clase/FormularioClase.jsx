@@ -19,6 +19,8 @@ const FormularioClase = ({ apiClase, editarClase, toggleModal, setError }) => {
     const { data } = await axios.get(
       `${import.meta.env.VITE_API_URL}/instructores`
     );
+    //let dataInstructores = data.filter((item) => item.Estado_instructor === 1);
+    //setInstructores(dataInstructores);
     setInstructores(data);
   };
 

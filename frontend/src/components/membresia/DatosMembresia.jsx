@@ -26,7 +26,7 @@ const DatosMembresia = ({
   const handleRenovacion = (e) => {
     setRenovacion(e.target.value === "true" ? 1 : 0);
   };
-  console.log(tipomembresia);
+
   return (
     <div>
       <div className="mb-4 w-full">

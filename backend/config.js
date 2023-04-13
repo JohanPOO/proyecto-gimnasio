@@ -1,5 +1,5 @@
 export const PAYPAL_API_CLIENT =
-  "AQoRxtfWEKhGzlKObeiyfD2jdvvmo4vMparg9AH7-T7qGj-0Ep2hjVOzSV7-LsmMLsnzSAoy8GXNph0-";
+  "AYevpCEpP4uLAHg0n0mmc81bGRqFnKxrW1LInMwLJqUcu_z4N-VX4MmiMQvn7nxnK4lEAgiU3cf6idtt";
 export const PAYPAL_API_SECRET =
-  "EJriSV6FiiGv7S10vktqktZ1dNugXrA8Kn2bHOJLWzh9yWcE-vHTCZsE8o3Q3WS-IoAmM2HD2BQjgGuD";
+  "EL3aajnc3W8MQPhketzVrYMD_KhnI0fWSYoDWyUE3JP_YjC54CJZ9345AbtCjolePXmns9C_Ho_nFosX";
 export const PAYPAL_API = "https://api-m.sandbox.paypal.com";

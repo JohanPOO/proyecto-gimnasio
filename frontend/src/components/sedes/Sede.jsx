@@ -4,11 +4,7 @@ const Sede = ({ sede }) => {
   const { ID_sede, Nombre, Url_foto, Direccion, Estado_sede } = sede;
 
   return (
-    <div
-      className={`${
-        ID_sede % 2 != 0 ? "bg-red-600" : "bg-indigo-600"
-      } relative w-11/12 flex flex-col  shadow-x p-6 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 border-2 border-black`}
-    >
+    <div className="relative w-11/12 flex flex-col bg-white text-black rounded-md shadow p-6 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 border-2 ">
       <br />
       {/*SVG DEL LOGO DE LOCACION*/}
       <svg
@@ -40,8 +36,10 @@ const Sede = ({ sede }) => {
       <div className="absolute top-0 right-0 -mt-8 -mr-6 z-10">
         <div
           className={`${
-            Estado_sede === 1 ? " bg-green-400" : " bg-red-400"
-          } text-black text-3xl font-semibold py-2 px-4 border-2 border-black`}
+            Estado_sede === 1
+              ? " bg-white text-green-600"
+              : " bg-white text-red-500"
+          }  text-3xl font-semibold py-2 px-2 border-2`}
         >
           {Estado_sede === 1 ? "Abierto" : "Cerrado"}
         </div>

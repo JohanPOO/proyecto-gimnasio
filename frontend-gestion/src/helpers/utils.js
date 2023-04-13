@@ -16,6 +16,15 @@ export const formatFecha = (date) => {
   //console.log(fechaFormateada); // Ejemplo de salida: "2023-03-14"
 };
 
+export const formatFecha2 = (date) => {
+  const fecha = new Date(date);
+  const anio = fecha.getFullYear();
+  const mes = String(fecha.getMonth() + 1).padStart(2, "0"); // Agrega un cero si el mes es menor a 10
+  const dia = String(fecha.getDate()).padStart(2, "0"); // Agrega un cero si el día es menor a 10
+  const fechaFormateada = `${dia}-${mes}-${anio}`;
+  return fechaFormateada;
+};
+
 export const mapeoHora = (hora) => {
   const time = new Date("1970-01-01T" + hora + "Z").toLocaleTimeString(
     "en-US",

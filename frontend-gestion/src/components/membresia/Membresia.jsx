@@ -1,4 +1,5 @@
 import React from "react";
+import { formatFecha2 } from "../../helpers/utils.js";
 
 const Membresia = ({ membresia }) => {
   const {
@@ -24,11 +25,11 @@ const Membresia = ({ membresia }) => {
       </td>
 
       <td className="p-2 space-y-2">
-        <p className="text-xl text-gray-800">{Fecha_inicio}</p>
+        <p className="text-xl text-gray-800">{formatFecha2(Fecha_inicio)}</p>
       </td>
 
       <td className="p-2 space-y-2">
-        <p className="text-xl text-gray-800">{Fecha_fin}</p>
+        <p className="text-xl text-gray-800">{formatFecha2(Fecha_fin)}</p>
       </td>
       {
         <td className="p-2 space-y-2">

@@ -6,6 +6,8 @@ import {
   UpdateContraseña,
 } from "../models/usuarios_cliente.model.js";
 
+import { comprobarDatoRepetido } from "../helpers/comprobarDatoRepetido.js";
+
 import { generarJWT, verificarJWT } from "../helpers/generarJWT.js";
 
 const obtenerClientes = async (req, res) => {
@@ -108,11 +110,23 @@ const cambiarContraseña = async (req, res) => {
 
     const result = await UpdateContraseña({ id, password });
     if (result.affectedRows === 0) {
-      const error = new Error("Sede No Actualizado");
+      const error = new Error("Contraseña No Actualizado");
       return res.status(304).json({ msg: error.message });
     }
 
     return res.json({ msg: "Contraseña Actualizado" });
+  } catch (error) {
+    return res.status(500).json({ msg: error.msg });
+  }
+};
+
+const comprobarClientes = async (req, res) => {
+  try {
+    const { usuario: username, dni, celular } = req.body;
+
+    const repetido = await comprobarDatoRepetido({ username, dni, celular });
+
+    return res.status(200).json(repetido);
   } catch (error) {
     return res.status(500).json({ msg: error.msg });
   }
@@ -124,4 +138,5 @@ export {
   inicioSesionCliente,
   comprobarCorreo,
   cambiarContraseña,
+  comprobarClientes,
 };

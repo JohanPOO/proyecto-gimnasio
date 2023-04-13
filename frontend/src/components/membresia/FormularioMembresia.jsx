@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../../context/DataContext";
+import axios from "axios";
 import Error from "../Error";
 //import { useParams } from "react-router-dom";
 
@@ -78,6 +79,36 @@ const FormularioMembresia = ({ precio, descripcion }) => {
         }, 2000);
         return;
       }
+
+      if (dni.length < 8 || dni.length > 8) {
+        setError({ alerta: true, msg: "Error en la longitud del DNI" });
+        setTimeout(() => {
+          setError({});
+        }, 2000);
+        return;
+      }
+
+      if (celular.length < 9 || celular.length > 9) {
+        setError({ alerta: true, msg: "Error en la longitud del celular" });
+        setTimeout(() => {
+          setError({});
+        }, 2000);
+        return;
+      }
+
+      const result = await axios.post(
+        "http://localhost:8000/api/comprobar-clientes",
+        { usuario, dni, celular }
+      );
+
+      if (result.data.duplicado) {
+        setError({ alerta: true, msg: result.data.msg });
+        setTimeout(() => {
+          setError({});
+        }, 2000);
+        return;
+      }
+
       const response = await fetch("http://localhost:8000/api/create-order", {
         method: "POST",
         headers: {
