@@ -55,4 +55,8 @@ const PORT = 8000;
 //Escucha del servidor
 app.listen(PORT, () => {
   console.log(`Puerto iniciado en el puerto ${PORT}`);
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 46b5929 (cambios nuevos)

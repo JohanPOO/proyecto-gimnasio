@@ -19,7 +19,7 @@ const Sede = ({ sede }) => {
         />
       </svg>
       <p className="text-2xl uppercase font-bold inline">
-        Athletic Fision Perú {Nombre.split(" ").slice(1, 2).join()}
+        Athletic Fisio Perú {Nombre.split(" ").slice(1, 2).join()}
       </p>
       <br />
 

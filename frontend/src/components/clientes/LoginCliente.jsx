@@ -99,12 +99,12 @@ const LoginCliente = () => {
                 >
                   Iniciar Sesión
                 </button>
-                <a
+                {/*<a
                   href="/confirmar-email"
                   className="float-right font-normal border-b-2 border-gray-400 cursor-pointer"
                 >
                   Recuperar Contraseña
-                </a>
+                </a>*/}
               </div>
             </form>
           </div>

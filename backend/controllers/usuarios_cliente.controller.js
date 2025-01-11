@@ -13,7 +13,6 @@ import { generarJWT, verificarJWT } from "../helpers/generarJWT.js";
 const obtenerClientes = async (req, res) => {
   try {
     const clientes = await getClientes();
-
     if (Object.keys(clientes).length === 0) {
       const error = new Error("No hay Clientes");
       return res.status(404).json({ msg: error.message });

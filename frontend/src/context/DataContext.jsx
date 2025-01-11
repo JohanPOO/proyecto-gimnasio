@@ -11,11 +11,6 @@ export const DataProvider = ({ children }) => {
   const [clientes, setClientes] = useState([]);
   const [generos, setGeneros] = useState([]);
 
-  /*const apiSede = axios("http://localhost:8000/api/sedes");
-  const apiInstructor = axios("http://localhost:8000/api/instructores");
-  const apiClase = axios("http://localhost:8000/api/clases");
-  const apiTipoMembresia = axios("http://localhost:8000/api/tipomembresias");
-  const apiClientes = "http://localhost:8000/api/clientes";*/
   const apiBaseUrl = "http://localhost:8000/api/";
   const urls = [
     "http://localhost:8000/api/sedes",
@@ -28,17 +23,6 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => {
     const apis = async () => {
-      /*const responses = await Promise.all(urls.map((url) => axios.get(url)));
-
-      let [sede, instructor, clase, tipomembresia, cliente, genero] =
-        responses.map((response) => response.data);
-
-      setSedes(sede);
-      setInstructores(instructor);
-      setClases(clase);
-      setTiposMembresias(tipomembresia);
-      setClientes(cliente);
-      setGeneros(genero);*/
 
       try {
         const sedesResponse = await axios.get(apiBaseUrl + "sedes");

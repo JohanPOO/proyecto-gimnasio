@@ -49,7 +49,8 @@ const ConfirmarEmail = () => {
   return (
     <>
       {validarCorreo ? (
-        <CambiarContraseña dato={dato} />
+        //<CambiarContraseña dato={dato} />
+        <></>
       ) : (
         <div className="lg:p-40">
           <h2 className="text-4xl uppercase font-bold text-center mb-10">

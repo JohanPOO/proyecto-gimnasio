@@ -58,7 +58,7 @@ const FormularioTipoMembresia = ({
           `${import.meta.env.VITE_API_URL}/registro-tipomembresia`,
           objetoTipoMemb
         );
-        console.log(data);
+        
         setError({ msg: data.msg, alerta: false });
         setTimeout(() => {
           setError({});

@@ -4,10 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 8001",
     "build": "vite build",
-    "preview": "vite preview",
-    "serve": "vite --port 8001"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@glidejs/glide": "^3.6.0",
