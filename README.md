@@ -17,7 +17,7 @@ Puerto: Backend=8000, Frontend=8001, Frontend-Gestión=8002
 | npm install  | npm install |npm install |
 | npm run dev | npm run dev        |    npm run dev |
 
-#Tecnologías utilizadas: 
+# Tecnologías utilizadas: 
 - Backend
 -NodeJs
 -Express
