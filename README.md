@@ -3,7 +3,7 @@
 Este es un proyecto de un sistema de gestión y presentación de un gimnasio, que permite la automatización de los procesos del negocio.
 </p>
 
-#Database
+# Database
 - Ejecutar el SQL script: 
 	gimnasiodb.sql
 
